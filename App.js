@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar } from "react-native";
+import Navigator from "./Navigator";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import searchReducer from "./state/searchAny";
+import searchCategoryReducer from "./state/searchByCategory";
+import React from "react";
+
+let store = configureStore({
+  reducer: {
+    search: searchReducer,
+    searchCategory: searchCategoryReducer,
+  },
+});
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
